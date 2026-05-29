@@ -1,0 +1,74 @@
+AURACITY - PROJECT OVERVIEW & ROADMAP
+1. CORE IDEA & VISION
+
+Auracity is a professional, real-time civic governance and smart city monitoring platform. It bridges the gap between citizens, city administrators, and department workers (resolvers). Citizens use a map-based interface to report local civic issues (e.g., broken roads, water leaks, power outages) accompanied by photographs. Workers resolve these issues, and administrators oversee city budgets and work progress.
+
+2. INNOVATION & UNIQUE SELLING PROPOSITION
+
+Auracity goes far beyond a typical "complaint box" application by deeply integrating advanced AI systems to automate city operations:
+
+AI-Driven Issue Classification: Reports are automatically analyzed via a Vision LLM (Llama-4 on Groq). It extracts detailed subtypes, predicts the required department, estimates time-to-fix, and provides a concise summary, drastically reducing manual sorting.
+Automated AI Work Auditing & Payouts: When a Resolver completes a job, they submit a "Proof of Resolution" photo. The AI compares the "before" and "after" photos, determines completion, gives a confidence score, rates the work (1-5 stars), and automatically issues a fair financial payout (₹100 - ₹5000) straight to the Resolver's wallet.
+Democratic "City Mood" Engine: A real-time sliding-window system that takes citizen mood votes over the last 2 hours and calculates a "Majority Rule" global sentiment, visually displaying how the city is feeling.
+Automated AuraBot Concierge: An embedded AI assistant tailored specifically to explain the city rules, treasury logic, and governance model to new users.
+Transparent Ecosystem: Every AI payout automatically deducts from an Admin Treasury and deposits to the Worker Wallet, logging all actions in an immutable financial ledger.
+3. TECH STACK
+Frontend Framework: Flutter (Dart) for high-performance iOS, Android, and Web builds.
+State & Routing: provider for state management, go_router for robust navigation.
+Database & Infrastructure: Supabase (PostgreSQL database, Auth, Storage, and Realtime subscriptions) functioning as the real-time backbone of the app. It enables relational data modeling, secure authentication, and live updates across clients.
+Location Services: google_maps_flutter, geolocator, and geocoding for map integrations and coordinate mapping.
+AI Layer: Groq API executing Meta's llama-4-scout-17b models for nearly instantaneous computer vision and complex text analysis operations.
+UI/UX: flutter_animate for micro-interactions, google_fonts for typography, cupertino_icons for cohesive styling.
+4. DEVELOPMENT ROADMAP (How We Built It)
+
+Phase 1: Foundation & Mapping Infrastructure
+
+Initialized the Flutter app and connected it securely to Supabase backend services.
+Integrated Google Maps and built the core user interface to drop pins, fetch coordinates, and wrap this in a premium glass-morphic UI.
+
+Phase 2: Reporting & AI Ingestion (The Problem)
+
+Created the reporting workflow where users capture images.
+Engineered the AiService prompt architecture to feed user images and descriptions to Groq, returning structured JSON metadata (priority, department, AI summaries).
+
+Phase 3: Roles, Gamification & The Dashboard
+
+Built role-based access logic linking Users, Admins, and Resolvers using Supabase Auth and row-level security (RLS).
+Created Admin dashboards to monitor a ₹5,00,000 budget and the Resolver job dashboards.
+Integrated User gamification: awarding Points, upvoting mechanics, and Leaderboards.
+
+Phase 4: AI Resolution Engine (The Fix)
+
+Engineered the complex verification loop: taking the resolution image, passing it alongside the original issue data, and writing prompts to force the AI to act as a rigorous civic quality auditor.
+Tied the AI response to the financial database, fully automating work payouts through transactional queries.
+
+Phase 5: Global State & Chatbot
+
+Designed the sliding-window voting algorithm for the "City Mood".
+Built the "AuraBot" conversational interface using Llama-4 to serve as a digital concierge.
+5. DATABASE MANAGEMENT SYSTEM (In Depth)
+
+Overview & Connections:
+Auracity uses Supabase powered by PostgreSQL, a relational database optimized with real-time subscriptions and secure APIs. The system follows a structured relational model with normalized tables and foreign key relationships, where the issues table acts as the central hub.
+
+Users Table (users): Connected to issues both as the creator (reporter_id) and the solver (resolver_id). It stores wallet balances, budgets, credibility ratings, and engagement points.
+Issues Table (issues): Contains coordinate data, descriptions, image URLs, and AI-generated metadata. It links to users and tracks the lifecycle of reported problems.
+Financials Table (financials): A strict audit ledger linked to both issues and users, ensuring transparency in transactions.
+Context Tables (metadata, mood_votes): Store global state and time-based voting data.
+
+How it works in-depth:
+
+Real-Time Reactivity: Supabase Realtime subscriptions allow clients to listen to database changes. When an issue is resolved, updates to issue status, wallets, budgets, and logs propagate instantly across all connected clients.
+Transactional Integrity: PostgreSQL transactions ensure atomic operations. When AI approves a resolution:
+[1] Issue status updates to "resolved"
+[2] Reporter receives reward points
+[3] Resolver wallet is credited
+[4] Admin treasury is debited
+[5] A financial log entry is created
+If any step fails, the entire transaction is rolled back.
+Sliding Window Querying: The "City Mood" feature queries mood_votes where timestamps fall within the last 2 hours and computes results efficiently using SQL aggregation.
+6. REAL LIFE APPLICATIONS
+Municipal & City Governance: Can be deployed by real-world smart-city initiatives (like NYC 311 but modernized) to crowd-source infrastructure problems, dramatically cutting red tape and manual municipal auditing by having AI distribute work and pay contractors fairly based on photo evidence.
+Large Corporate & Educational Campuses: Universities or massive tech campuses can deploy the system to maintain facilities; students report a broken washing machine or lightbulb, campus maintenance fixes it and gets internal performance metrics updated.
+Private Gated Communities: HOA boards can use the app to track landscaping, security flaws, and maintenance, paying local handymen out of the HOA treasury transparently.
+Disaster Relief Management: In post-disaster scenarios, it can be repurposed to map out critical damage (collapsed roads, broken pipes), using the AI prioritization engine to automatically task and guide relief workers to urgent clusters.

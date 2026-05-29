@@ -1,0 +1,38 @@
+You are an expert Database Architect. I need you to generate a highly detailed Entity-Relationship (ER) diagram layout (using Mermaid.js syntax) and a comprehensive database schema for my project, "Auracity".
+
+### Project Overview:
+Auracity is a professional, real-time civic governance and smart city monitoring platform. It bridges the gap between citizens, administrators, and department workers. Through the app, citizens report local civic issues (broken roads, water leaks, etc.) with photographs. Workers resolve these issues, while administrators oversee city budgets and work progress. The entire system is augmented by an AI layer (using large language/vision models) that automates the verification and payout process.
+
+### Types of Users & Roles to integrate:
+1. Users (Citizens): Report issues, capture initial images, provide descriptions. They earn gamification/engagement points and credibility ratings for their civic engagement. They cast "mood votes" to indicate their current sentiment.
+2. Resolvers (Department Workers/Contractors): Pick up reported issues, resolve them, and upload "Proof of Resolution" photos. They receive financial payouts directly to their digital wallets upon successful AI verification.
+3. Administrators (Admins/City Governance): Manage the "Admin Treasury" budget. They oversee reported issues and automatic payouts triggered by the AI resolution engine.
+4. System/Developer Agents (AuraBot / AI Layer): Programmatic hooks that add AI metadata to issues, calculate exact payouts, verify image similarities, and update the global metadata context and "City Mood".
+
+### Core Entities to consider in your ER Diagram:
+
+1. Users Table:
+   - Should handle all roles (Citizens, Admins, Resolvers) via a robust role column or linked roles table.
+   - Attributes must include: wallet_balances, budgets (for Admins), credibility_ratings, engagement_points.
+
+2. Issues/Reports Table:
+   - The central entity linking the workflow.
+   - Relationships: Must connect to the Users table multiple times (as 'reporter' and 'resolver').
+   - Attributes: GPS coordinates (latitude/longitude), text descriptions, initial_image_urls, resolution_image_urls, timestamps.
+   - AI Metadata JSON: AI-extracted subtypes, predicted department, estimated time-to-fix, AI summaries, and AI confidence scores.
+   - Status tracking.
+
+3. Financials/Transactions Table:
+   - A strict, immutable audit ledger.
+   - Relationships: Must link to the Issues table (which job triggered it) and the Users table (who received it, whose treasury paid it).
+   - Attributes: transaction_amount, transaction_type (payout, deduction), timestamps.
+
+4. Context & Analytics Tables:
+   - Mood_Votes: Used for the Democratic "City Mood" Engine. Captures user_id, sentiment value, and timestamp for sliding-window queries.
+   - System_Metadata/Logs: Used by developers to store global app states, bot configs, and broader system audit logs.
+
+### Instructions:
+1. Create a fully normalized ER diagram code using Mermaid.js syntax mapping out all entities mentioned above.
+2. Clearly define the data types, Primary Keys (PK), and Foreign Keys (FK) within the diagram.
+3. Detail the cardinality and precise relationships between Entities (e.g., One-to-Many from Users to Financials).
+4. Beneath the code, provide a brief explanation of how positional and transactional integrity flows through these tables (specifically detailing the AI-approved payout workflow linking Issues, Users, and Financials).

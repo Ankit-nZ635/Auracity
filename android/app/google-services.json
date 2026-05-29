@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "945947078385",
+    "project_id": "auracity-ba9cb",
+    "storage_bucket": "auracity-ba9cb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945947078385:android:2f5fb8ef142637f449c350",
+        "android_client_info": {
+          "package_name": "com.auracity.auracity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs4bAY_OQrLroCYcdbpv2yoXT9aKB5loc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
