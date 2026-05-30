@@ -48,10 +48,11 @@ A quick overview of the core files and directories in this project:
 ### 1. Clone & Install
 ```bash
 # Clone the repository
-git clone [https://github.com/Ankit-nZ635/Auracity.git](https://github.com/Ankit-nZ635/Auracity.git)
+git clone https://github.com/Ankit-nZ635/Auracity.git
 
 # Navigate into the project
 cd Auracity
 
 # Fetch all Flutter dependencies
 flutter pub get
+```
