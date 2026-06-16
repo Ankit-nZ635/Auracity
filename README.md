@@ -22,7 +22,7 @@
 
 | Splash & Onboarding | Maps Interface |
 | :---: | :---: | 
-| <img src="flutter_01.png" width="300" alt="Auracity UI Screenshot"> | *(Upload another screenshot here)* |
+| <img src="flutter_01.png" width="300" alt="Auracity UI Screenshot"> |
 
 ---
 
