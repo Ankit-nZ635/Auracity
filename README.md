@@ -20,8 +20,8 @@
 
 ## 📸 Sneak Peek
 
-| Splash & Onboarding | Maps Interface |
-| :---: | :---: | 
+| Splash & Onboarding | 
+| :---: | 
 | <img src="flutter_01.png" width="300" alt="Auracity UI Screenshot"> |
 
 ---
